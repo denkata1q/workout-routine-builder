@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}{% if object %}Edit {{ object.name }}{% else %}Add exercise{% endif %}{% endblock %}
+{% block content %}
+<h1>{% if object %}Edit exercise{% else %}Add exercise{% endif %}</h1>
+
+<form method="post" class="form-narrow" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% include "partials/form_field.html" with field=form.name %}
+    {% include "partials/form_field.html" with field=form.description %}
+    {% include "partials/form_field.html" with field=form.difficulty %}
+    {% include "partials/form_field.html" with field=form.muscle_groups %}
+    {% if form.created_on %}
+        {% include "partials/form_field.html" with field=form.created_on %}
+    {% endif %}
+    <button class="btn btn-primary" type="submit">{% if object %}Save changes{% else %}Add exercise{% endif %}</button>
+    <a class="btn btn-link" href="{% url 'exercise-list' %}">Cancel</a>
+</form>
+{% endblock %}

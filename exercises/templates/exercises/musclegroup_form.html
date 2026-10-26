@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Add muscle group{% endblock %}
+{% block content %}
+<h1>Add muscle group</h1>
+<form method="post" class="form-narrow" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% include "partials/form_field.html" with field=form.name %}
+    <button class="btn btn-primary" type="submit">Add muscle group</button>
+    <a class="btn btn-link" href="{% url 'musclegroup-list' %}">Cancel</a>
+</form>
+{% endblock %}

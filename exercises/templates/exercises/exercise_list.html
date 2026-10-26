@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Exercises{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Exercises</h1>
+    <a class="btn btn-primary" href="{% url 'exercise-create' %}">Add exercise</a>
+</div>
+
+<form method="get" class="row g-2 mb-4">
+    <div class="col-md-5">
+        <select name="muscle_group" class="form-select" aria-label="Filter by muscle group">
+            <option value="">All muscle groups</option>
+            {% for mg in muscle_groups %}
+                <option value="{{ mg.pk }}" {% if request.GET.muscle_group == mg.pk|stringformat:"s" %}selected{% endif %}>{{ mg.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-4">
+        <select name="sort" class="form-select" aria-label="Sort exercises">
+            <option value="">Default order</option>
+            <option value="name" {% if request.GET.sort == "name" %}selected{% endif %}>Name A to Z</option>
+            <option value="-name" {% if request.GET.sort == "-name" %}selected{% endif %}>Name Z to A</option>
+            <option value="difficulty" {% if request.GET.sort == "difficulty" %}selected{% endif %}>Difficulty A to Z</option>
+            <option value="-difficulty" {% if request.GET.sort == "-difficulty" %}selected{% endif %}>Difficulty Z to A</option>
+            <option value="created_on" {% if request.GET.sort == "created_on" %}selected{% endif %}>Newest first</option>
+        </select>
+    </div>
+    <div class="col-md-3 d-grid">
+        <button class="btn btn-outline-primary" type="submit">Apply</button>
+    </div>
+</form>
+
+{% if exercises %}
+    <p class="text-muted">{{ page_obj.paginator.count }} exercise{{ page_obj.paginator.count|pluralize }} found</p>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+        {% for exercise in exercises %}
+            <div class="col">{% include "partials/exercise_card.html" %}</div>
+        {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+    <nav class="mt-4" aria-label="Exercise pages">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.muscle_group %}&muscle_group={{ request.GET.muscle_group }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">Previous</a></li>
+            {% endif %}
+            <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.muscle_group %}&muscle_group={{ request.GET.muscle_group }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+{% else %}
+    <p>No exercises match. <a href="{% url 'exercise-create' %}">Add the first one.</a></p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="py-4">
+    <h1 class="display-5">Build routines. Log every session.</h1>
+    <p class="lead">Collect your exercises, group them into routines, and keep a record of each workout.</p>
+    <a class="btn btn-primary me-2" href="{% url 'exercise-list' %}">View exercises</a>
+    <a class="btn btn-outline-primary" href="{% url 'exercise-create' %}">Add an exercise</a>
+</div>
+{% endblock %}

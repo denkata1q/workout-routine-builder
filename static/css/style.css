@@ -1,0 +1,26 @@
+:root {
+    --ink: #12212b;
+    --steel: #5b6b78;
+    --paper: #edf1f3;
+    --accent: #0e7c7b;
+    --danger: #c0392b;
+}
+body { background: var(--paper); color: var(--ink); font-family: "Barlow", system-ui, sans-serif; line-height: 1.55; }
+h1, h2, h3, .navbar-brand { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; letter-spacing: 0.01em; }
+a { color: var(--accent); }
+.site-nav { background: var(--ink); }
+.site-footer { background: var(--ink); color: #c9d3da; font-size: 0.9rem; }
+.btn-primary { background: var(--accent); border-color: var(--accent); }
+.btn-primary:hover, .btn-primary:focus { background: #0a615f; border-color: #0a615f; }
+.btn-outline-primary { color: var(--accent); border-color: var(--accent); }
+.btn-outline-primary:hover { background: var(--accent); border-color: var(--accent); }
+.exercise-card { border: 1px solid #d5dde2; border-left: 4px solid var(--accent); border-radius: 4px; }
+.exercise-card a { text-decoration: none; color: var(--ink); }
+.badge { color: #fff; font-weight: 500; }
+.level-beginner { background: #3c8d5a; }
+.level-intermediate { background: #b7791f; }
+.level-advanced { background: var(--danger); }
+.form-narrow { max-width: 640px; }
+.form-narrow ul { list-style: none; padding-left: 0; }
+.errorlist { list-style: none; padding: 0; color: var(--danger); }
+.form-control:focus, .form-select:focus { border-color: var(--accent); box-shadow: 0 0 0 0.2rem rgba(14, 124, 123, 0.25); }

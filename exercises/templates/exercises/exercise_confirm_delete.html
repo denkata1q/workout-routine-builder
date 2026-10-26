@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Delete {{ object.name }}{% endblock %}
+{% block content %}
+<h1>Delete exercise</h1>
+<p>Delete <strong>{{ object.name }}</strong>? It will also be removed from every routine that includes it. This cannot be undone.</p>
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Delete exercise</button>
+    <a class="btn btn-link" href="{{ object.get_absolute_url }}">Cancel</a>
+</form>
+{% endblock %}

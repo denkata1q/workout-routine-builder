@@ -1,0 +1,9 @@
+<div class="card h-100 exercise-card">
+    <div class="card-body">
+        <h2 class="h5 card-title"><a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a></h2>
+        <span class="badge level-{{ exercise.difficulty|lower }}">{{ exercise.get_difficulty_display }}</span>
+        <p class="card-text mt-2">{{ exercise.description|default:"No description yet."|truncatewords:15 }}</p>
+        <p class="small text-muted mb-0">{{ exercise.muscle_groups_string|default:"No muscle groups" }}</p>
+    </div>
+    <div class="card-footer small text-muted">Added {{ exercise.created_on|timesince }} ago</div>
+</div>
