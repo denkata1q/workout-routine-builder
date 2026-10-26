@@ -26,8 +26,8 @@
             <div class="col">
                 <div class="card h-100 exercise-card">
                     <div class="card-body">
-                        <h2 class="h5 card-title"><a href="{{ routine.get_absolute_url }}">{{ routine.name }}</a></h2>
-                        <span class="badge bg-secondary">{{ routine.get_goal_display }}</span>
+                        <h2 class="card-title"><a href="{{ routine.get_absolute_url }}">{{ routine.name }}</a></h2>
+                        <span class="chip chip-goal">{{ routine.get_goal_display }}</span>
                         <p class="card-text mt-2">{{ routine.description|default:"No description yet."|truncatewords:15 }}</p>
                         <p class="small text-muted mb-0">{{ routine.exercises.all|length }} exercise{{ routine.exercises.all|length|pluralize }}</p>
                     </div>

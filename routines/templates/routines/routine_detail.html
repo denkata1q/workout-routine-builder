@@ -3,7 +3,7 @@
 {% block title %}{{ routine.name }}{% endblock %}
 {% block content %}
 <h1>{{ routine.name }}</h1>
-<span class="badge bg-secondary">{{ routine.get_goal_display }}</span>
+<span class="chip chip-goal">{{ routine.get_goal_display }}</span>
 
 <div class="my-3">{{ routine.description|default:"No description yet."|linebreaks }}</div>
 
@@ -12,7 +12,7 @@
     {% for exercise in routine.exercises.all %}
         <li class="list-group-item d-flex justify-content-between">
             <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>
-            <span class="badge level-{{ exercise.difficulty|lower }}">{{ exercise.get_difficulty_display }}</span>
+            {% include "partials/difficulty_meter.html" with level=exercise.difficulty label=exercise.get_difficulty_display %}
         </li>
     {% empty %}
         <li class="list-group-item">No exercises in this routine.</li>

@@ -17,10 +17,10 @@ def validate_not_in_future(value):
 
 class WorkoutSession(models.Model):
     routine = models.ForeignKey(Routine,
-        on_delete=models.CASCADE,
-        related_name='workout_sessions',
-        verbose_name='Routine',
-        help_text='Select the routine performed during this session.')
+                                on_delete=models.CASCADE,
+                                related_name='workout_sessions',
+                                verbose_name='Routine',
+                                help_text='Select the routine performed during this session.')
 
     date = models.DateField(
         validators=[validate_not_in_future],
@@ -35,7 +35,7 @@ class WorkoutSession(models.Model):
             message='Workout duration must be at least 1 minute.'
         ),
 
-        MaxValueValidator(
+            MaxValueValidator(
             limit_value=1440,
             message='Workout duration cannot exceed 1,440 minutes (24 hours).')],
         verbose_name='Duration (Minutes)',

@@ -4,12 +4,13 @@ from django.db.models.functions import Lower
 from django.urls import reverse
 from exercises.models import Exercise
 
+
 class Routine(models.Model):
 
     class Goal(models.TextChoices):
         STRENGTH = "STRENGTH", "Strength"
         ENDURANCE = "ENDURANCE", "Endurance"
-        FAT_LOSS= "FAT_LOSS", "Fat Loss"
+        FAT_LOSS = "FAT_LOSS", "Fat Loss"
 
     name = models.CharField(
         max_length=200,

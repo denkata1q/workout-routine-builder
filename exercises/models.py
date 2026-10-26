@@ -3,9 +3,11 @@ from django.db import models
 from django.db.models.functions import Lower
 from django.urls import reverse
 
+
 class MuscleGroup(models.Model):
-    name = models.CharField(max_length=100,verbose_name="Muscle Group Name",
-        help_text="Enter a unique name for the muscle group.")
+    name = models.CharField(max_length=100, verbose_name="Muscle Group Name",
+                            help_text="Enter a unique name for the muscle group.")
+
     class Meta:
         ordering = ['name']
         constraints = [
@@ -30,15 +32,15 @@ class Exercise(models.Model):
         ADVANCED = "ADVANCED", "Advanced"
 
     name = models.CharField(max_length=200,
-           validators=[MinLengthValidator(
-           limit_value=3,
-           message="Exercise name must be at least 3 characters long.")],
-           verbose_name = "Exercise Name",
-           help_text = "Enter the name of the exercise.",
-    )
+                            validators=[MinLengthValidator(
+                                limit_value=3,
+                                message="Exercise name must be at least 3 characters long.")],
+                            verbose_name="Exercise Name",
+                            help_text="Enter the name of the exercise.",
+                            )
     description = models.TextField(blank=True,
-        verbose_name = "Exercise Description",
-        help_text = "Enter a description of the exercise.",)
+                                   verbose_name="Exercise Description",
+                                   help_text="Enter a description of the exercise.",)
 
     difficulty = models.CharField(
         max_length=20,
@@ -48,12 +50,12 @@ class Exercise(models.Model):
         help_text="Select the difficulty of the exercise.",
     )
 
-    muscle_groups = models.ManyToManyField(MuscleGroup,related_name='exercises',
-        verbose_name="Muscle Groups",
-        help_text="Select which muscle groups this exercise belongs to.")
+    muscle_groups = models.ManyToManyField(MuscleGroup, related_name='exercises',
+                                           verbose_name="Muscle Groups",
+                                           help_text="Select which muscle groups this exercise belongs to.")
 
     created_on = models.DateTimeField(auto_now_add=True,
-        verbose_name="Created on",)
+                                      verbose_name="Created on",)
 
     class Meta:
         ordering = ['-created_on']

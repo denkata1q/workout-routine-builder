@@ -1,10 +1,11 @@
 from django import forms
 from .models import WorkoutSession
 
+
 class WorkoutSessionForm(forms.ModelForm):
     class Meta:
         model = WorkoutSession
-        fields = ["routine",'date','duration_minutes','notes']
+        fields = ["routine", 'date', 'duration_minutes', 'notes']
         labels = {
             "routine": "Routine",
             "date": "Workout Date",
@@ -32,8 +33,8 @@ class WorkoutSessionForm(forms.ModelForm):
         }
         widgets = {
             "routine": forms.Select(attrs={"class": "form-select"}),
-            "date": forms.DateInput(attrs={"class": "form-control", "type": "date"},format="%Y-%m-%d",),
+            "date": forms.DateInput(attrs={"class": "form-control", "type": "date"}, format="%Y-%m-%d",),
             "duration_minutes": forms.NumberInput(attrs={"class": "form-control"}),
             "notes": forms.Textarea(attrs={"class": "form-control", "rows": 4,
-                                           'placeholder': "How did the workout feel? Any personal records?",}),
+                                           'placeholder': "How did the workout feel? Any personal records?", }),
         }

@@ -2,20 +2,23 @@
 {% block title %}{{ exercise.name }}{% endblock %}
 {% block content %}
 <h1>{{ exercise.name }}</h1>
-<span class="badge level-{{ exercise.difficulty|lower }}">{{ exercise.get_difficulty_display }}</span>
-
-<div class="my-3">
-    {{ exercise.description|default:"No description yet."|linebreaks }}
+<div class="mb-3">
+    {% include "partials/difficulty_meter.html" with level=exercise.difficulty label=exercise.get_difficulty_display %}
 </div>
 
-<dl class="row">
-    <dt class="col-sm-3">Muscle groups</dt>
-    <dd class="col-sm-9">{{ exercise.muscle_groups_string|default:"None" }}</dd>
-    <dt class="col-sm-3">Created</dt>
-    <dd class="col-sm-9">{{ exercise.created_on|date:"j F Y, H:i" }}</dd>
-    <dt class="col-sm-3">Used in</dt>
-    <dd class="col-sm-9">{{ exercise.routines.count }} routine{{ exercise.routines.count|pluralize }}</dd>
-</dl>
+<div class="panel mb-4">
+    <div class="mb-4">{{ exercise.description|default:"No description yet."|linebreaks }}</div>
+    <dl class="row">
+        <dt class="col-sm-3">Muscle groups</dt>
+        <dd class="col-sm-9">
+            {% for group in exercise.muscle_groups.all %}<a class="chip text-decoration-none" href="{% url 'exercise-list' %}?muscle_group={{ group.pk }}">{{ group.name }}</a>{% empty %}None{% endfor %}
+        </dd>
+        <dt class="col-sm-3">Created</dt>
+        <dd class="col-sm-9">{{ exercise.created_on|date:"j F Y, H:i" }}</dd>
+        <dt class="col-sm-3">Used in</dt>
+        <dd class="col-sm-9">{{ exercise.routines.count }} routine{{ exercise.routines.count|pluralize }}</dd>
+    </dl>
+</div>
 
 <a class="btn btn-primary" href="{% url 'exercise-update' exercise.pk %}">Edit</a>
 <a class="btn btn-outline-danger" href="{% url 'exercise-delete' exercise.pk %}">Delete</a>

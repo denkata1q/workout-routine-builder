@@ -7,12 +7,12 @@ class RoutineForm(NameCleanMixin, forms.ModelForm):
 
     class Meta:
         model = Routine
-        fields = ['name','goal','description','exercises']
+        fields = ['name', 'goal', 'description', 'exercises']
         labels = {
-            'name':'Routine Name',
-            'goal':'Goal',
-            'description':'Description',
-            'exercises':'Exercises',
+            'name': 'Routine Name',
+            'goal': 'Goal',
+            'description': 'Description',
+            'exercises': 'Exercises',
         }
         help_texts = {
             "name": "Enter the name of the routine.",
@@ -33,7 +33,7 @@ class RoutineForm(NameCleanMixin, forms.ModelForm):
             },
         }
         widgets = {
-            'name':forms.TextInput(attrs={'class':'form-control','placeholder':"e.g., Upper Body Strength"}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "e.g., Upper Body Strength"}),
             "goal": forms.Select(attrs={"class": "form-select"}),
             "description": forms.Textarea(
                 attrs={
@@ -44,5 +44,3 @@ class RoutineForm(NameCleanMixin, forms.ModelForm):
             ),
             "exercises": forms.CheckboxSelectMultiple(),
         }
-
-

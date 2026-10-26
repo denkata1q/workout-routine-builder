@@ -1,16 +1,19 @@
 from django import forms
-from .models import Exercise,MuscleGroup
+from .models import Exercise, MuscleGroup
+
+
 class NameCleanMixin:
     def clean_name(self):
         name = self.cleaned_data.get("name")
         if name:
             name = ' '.join(name.split())
             if name.isdigit():
-                verbose_name=self.Meta.model._meta.verbose_name
+                verbose_name = self.Meta.model._meta.verbose_name
                 raise forms.ValidationError(
                     f"{verbose_name.capitalize()} name cannot consist only of numbers."
                 )
         return name
+
 
 class MuscleGroupForm(NameCleanMixin, forms.ModelForm):
 
@@ -37,7 +40,8 @@ class MuscleGroupForm(NameCleanMixin, forms.ModelForm):
             ),
         }
 
-class ExerciseForm(NameCleanMixin,forms.ModelForm):
+
+class ExerciseForm(NameCleanMixin, forms.ModelForm):
     created_on = forms.DateTimeField(
         disabled=True,
         required=False,
@@ -45,9 +49,10 @@ class ExerciseForm(NameCleanMixin,forms.ModelForm):
         help_text="This timestamp is automatically generated and cannot be modified.",
         widget=forms.DateTimeInput(attrs={"class": "form-control"}),
     )
+
     class Meta:
         model = Exercise
-        fields = ['name','description','difficulty','muscle_groups']
+        fields = ['name', 'description', 'difficulty', 'muscle_groups']
         labels = {
             "name": "Exercise Name",
             "description": "Description",
@@ -58,8 +63,8 @@ class ExerciseForm(NameCleanMixin,forms.ModelForm):
         help_texts = {
             "name": "Enter the name of the exercise",
             "description": "Enter the description of the exercise",
-            "difficulty": "Enter the difficulty of the exercise",
-            "muscle_groups": "Enter the muscle groups of the exercise",
+            "difficulty": "Select the difficulty of the exercise",
+            "muscle_groups": "Select every muscle group the exercise trains",
         }
 
         error_messages = {
@@ -67,22 +72,22 @@ class ExerciseForm(NameCleanMixin,forms.ModelForm):
                 "required": "Please enter the name of the exercise"},
 
             'difficulty': {
-                'required': 'Please enter the difficulty of the exercise'
+                'required': 'Please select a difficulty level'
             },
             'muscle_groups': {
-                'required': 'Please enter the muscle groups of the exercise'
+                'required': 'Select at least one muscle group'
             },
         }
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g., Squat'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
-            'difficulty' : forms.Select(attrs={'class': 'form-select'}),
+            'difficulty': forms.Select(attrs={'class': 'form-select'}),
             'muscle_groups': forms.CheckboxSelectMultiple(),
         }
-    def __init__(self, *args, **kwargs):
-            super().__init__(*args,**kwargs)
-            if self.instance and self.instance.pk:
-                self.fields["created_on"].initial = self.instance.created_on
-            else:
-                self.fields.pop("created_on", None)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            self.fields["created_on"].initial = self.instance.created_on
+        else:
+            self.fields.pop("created_on", None)
