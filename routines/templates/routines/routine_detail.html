@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load workout_extras %}
+{% block title %}{{ routine.name }}{% endblock %}
+{% block content %}
+<h1>{{ routine.name }}</h1>
+<span class="badge bg-secondary">{{ routine.get_goal_display }}</span>
+
+<div class="my-3">{{ routine.description|default:"No description yet."|linebreaks }}</div>
+
+<h2 class="h4">Exercises</h2>
+<ul class="list-group mb-4">
+    {% for exercise in routine.exercises.all %}
+        <li class="list-group-item d-flex justify-content-between">
+            <a href="{{ exercise.get_absolute_url }}">{{ exercise.name }}</a>
+            <span class="badge level-{{ exercise.difficulty|lower }}">{{ exercise.get_difficulty_display }}</span>
+        </li>
+    {% empty %}
+        <li class="list-group-item">No exercises in this routine.</li>
+    {% endfor %}
+</ul>
+
+<h2 class="h4">Logged workouts</h2>
+{% with sessions=routine.workout_sessions.all %}
+    {% if sessions %}
+        <ul class="list-group mb-4">
+            {% for session in sessions %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>{{ session.date|date:"j F Y" }}</span>
+                    <span class="text-muted">{{ session.duration_minutes|duration_display }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No workouts logged yet. <a href="{% url 'workout-create' %}">Log one.</a></p>
+    {% endif %}
+{% endwith %}
+
+<a class="btn btn-primary" href="{% url 'routine-update' routine.pk %}">Edit</a>
+<a class="btn btn-outline-danger" href="{% url 'routine-delete' routine.pk %}">Delete</a>
+<a class="btn btn-link" href="{% url 'routine-list' %}">Back to routines</a>
+{% endblock %}

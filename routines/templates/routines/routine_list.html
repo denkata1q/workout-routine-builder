@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Routines{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Routines</h1>
+    <a class="btn btn-primary" href="{% url 'routine-create' %}">Add routine</a>
+</div>
+
+<form method="get" class="row g-2 mb-4">
+    <div class="col-md-6">
+        <select name="goal" class="form-select" aria-label="Filter by goal">
+            <option value="">All goals</option>
+            {% for value, label in goals %}
+                <option value="{{ value }}" {% if selected_goal == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-3 d-grid">
+        <button class="btn btn-outline-primary" type="submit">Apply</button>
+    </div>
+</form>
+
+{% if routines %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+        {% for routine in routines %}
+            <div class="col">
+                <div class="card h-100 exercise-card">
+                    <div class="card-body">
+                        <h2 class="h5 card-title"><a href="{{ routine.get_absolute_url }}">{{ routine.name }}</a></h2>
+                        <span class="badge bg-secondary">{{ routine.get_goal_display }}</span>
+                        <p class="card-text mt-2">{{ routine.description|default:"No description yet."|truncatewords:15 }}</p>
+                        <p class="small text-muted mb-0">{{ routine.exercises.all|length }} exercise{{ routine.exercises.all|length|pluralize }}</p>
+                    </div>
+                    <div class="card-footer small text-muted">Created {{ routine.created_on|date:"j M Y" }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+    <nav class="mt-4" aria-label="Routine pages">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if selected_goal %}&goal={{ selected_goal }}{% endif %}">Previous</a></li>
+            {% endif %}
+            <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if selected_goal %}&goal={{ selected_goal }}{% endif %}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+{% else %}
+    <p>No routines match. <a href="{% url 'routine-create' %}">Add the first one.</a></p>
+{% endif %}
+{% endblock %}

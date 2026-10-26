@@ -22,4 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path("exercises/", include("exercises.urls")),
+    path("routines/", include("routines.urls")),
+    path("workouts/", include("workouts.urls")),
 ]

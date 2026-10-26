@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{% if object %}Edit {{ object.name }}{% else %}Add routine{% endif %}{% endblock %}
+{% block content %}
+<h1>{% if object %}Edit routine{% else %}Add routine{% endif %}</h1>
+
+<form method="post" class="form-narrow" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% include "partials/form_field.html" with field=form.name %}
+    {% include "partials/form_field.html" with field=form.goal %}
+    {% include "partials/form_field.html" with field=form.description %}
+    {% include "partials/form_field.html" with field=form.exercises %}
+    <button class="btn btn-primary" type="submit">{% if object %}Save changes{% else %}Add routine{% endif %}</button>
+    <a class="btn btn-link" href="{% url 'routine-list' %}">Cancel</a>
+</form>
+{% endblock %}

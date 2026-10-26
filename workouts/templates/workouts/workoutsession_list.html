@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load workout_extras %}
+{% block title %}Workout log{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Workout log</h1>
+    <a class="btn btn-primary" href="{% url 'workout-create' %}">Log a workout</a>
+</div>
+
+<form method="get" class="row g-2 mb-4">
+    <div class="col-md-6">
+        <select name="sort" class="form-select" aria-label="Sort workouts">
+            <option value="">Default order (newest first)</option>
+            <option value="date" {% if selected_sort == "date" %}selected{% endif %}>Oldest first</option>
+            <option value="-date" {% if selected_sort == "-date" %}selected{% endif %}>Newest first</option>
+            <option value="duration" {% if selected_sort == "duration" %}selected{% endif %}>Shortest first</option>
+            <option value="-duration" {% if selected_sort == "-duration" %}selected{% endif %}>Longest first</option>
+        </select>
+    </div>
+    <div class="col-md-3 d-grid">
+        <button class="btn btn-outline-primary" type="submit">Apply</button>
+    </div>
+</form>
+
+{% if workout_sessions %}
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr><th>Date</th><th>Routine</th><th>Duration</th><th>Notes</th></tr>
+            </thead>
+            <tbody>
+                {% for session in workout_sessions %}
+                    <tr>
+                        <td>{{ session.date|date:"j M Y" }}</td>
+                        <td><a href="{{ session.routine.get_absolute_url }}">{{ session.routine.name }}</a></td>
+                        <td>{{ session.duration_minutes|duration_display }}</td>
+                        <td>{{ session.notes|default:"-"|truncatewords:10 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if is_paginated %}
+    <nav class="mt-4" aria-label="Workout pages">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}">Previous</a></li>
+            {% endif %}
+            <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+{% else %}
+    <p>No workouts logged yet. <a href="{% url 'workout-create' %}">Log the first one.</a></p>
+{% endif %}
+{% endblock %}

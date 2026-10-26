@@ -1,17 +1,35 @@
 <nav class="navbar navbar-expand-lg navbar-dark site-nav">
     <div class="container">
-        <a class="navbar-brand" href="/">Workout Routine Builder</a>
+        <a class="navbar-brand" href="{% url 'home' %}">Workout Routine Builder</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'exercise-list' %}">Exercises</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'exercise-create' %}">Add exercise</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'musclegroup-list' %}">Muscle groups</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'musclegroup-create' %}">Add muscle group</a></li>
-                {# Add Routines and Workouts links here once their URLs exist #}
+                <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Exercises</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'exercise-list' %}">All exercises</a></li>
+                        <li><a class="dropdown-item" href="{% url 'exercise-create' %}">Add exercise</a></li>
+                        <li><a class="dropdown-item" href="{% url 'musclegroup-list' %}">Muscle groups</a></li>
+                        <li><a class="dropdown-item" href="{% url 'musclegroup-create' %}">Add muscle group</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Routines</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'routine-list' %}">All routines</a></li>
+                        <li><a class="dropdown-item" href="{% url 'routine-create' %}">Add routine</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Workouts</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'workout-list' %}">Workout log</a></li>
+                        <li><a class="dropdown-item" href="{% url 'workout-create' %}">Log a workout</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
