@@ -2,8 +2,10 @@
 {% block title %}Page not found{% endblock %}
 {% block content %}
 <div class="text-center py-5">
-    <h1 class="display-4">Page not found</h1>
+    <div class="not-found-code" aria-hidden="true">404</div>
+    <h1>Page not found</h1>
     <p class="lead">That page does not exist or has been moved.</p>
-    <a class="btn btn-primary" href="{% url 'exercise-list' %}">Browse exercises</a>
+    <a class="btn btn-primary me-2" href="{% url 'home' %}">Go to the home page</a>
+    <a class="btn btn-outline-primary" href="{% url 'exercise-list' %}">Browse exercises</a>
 </div>
 {% endblock %}

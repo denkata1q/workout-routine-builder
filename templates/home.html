@@ -1,10 +1,82 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<div class="py-4">
-    <h1 class="display-5">Build routines. Log every session.</h1>
-    <p class="lead">Collect your exercises, group them into routines, and keep a record of each workout.</p>
-    <a class="btn btn-primary me-2" href="{% url 'exercise-list' %}">View exercises</a>
-    <a class="btn btn-outline-primary" href="{% url 'exercise-create' %}">Add an exercise</a>
-</div>
+
+<section class="hero mb-5">
+    <div>
+        <h1 class="hero-title">Plan the session.<br>Log the work.</h1>
+        <p class="hero-lead">Keep your exercises in one place, combine them into routines, and record every workout with its date and duration.</p>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-light btn-lg" href="{% url 'routine-list' %}">Open my routines</a>
+            <a class="btn btn-outline-light btn-lg" href="{% url 'workout-create' %}">Log a workout</a>
+        </div>
+    </div>
+    <div class="hero-art">
+        <img src="{% static 'img/barbell.svg' %}" alt="" width="520" height="340">
+    </div>
+</section>
+
+<section class="mb-5">
+    <h2 class="section-title">Start from an empty list in four steps</h2>
+    <ol class="steps">
+        <li class="step">
+            <span class="step-number">1</span>
+            <div>
+                <h3 class="h5">Add muscle groups</h3>
+                <p>Chest, back, legs: the labels you will sort exercises by.</p>
+                <a href="{% url 'musclegroup-create' %}">Add a muscle group</a>
+            </div>
+        </li>
+        <li class="step">
+            <span class="step-number">2</span>
+            <div>
+                <h3 class="h5">Build your exercise library</h3>
+                <p>Describe each movement, set its difficulty and pick the muscles it trains.</p>
+                <a href="{% url 'exercise-create' %}">Add an exercise</a>
+            </div>
+        </li>
+        <li class="step">
+            <span class="step-number">3</span>
+            <div>
+                <h3 class="h5">Combine them into a routine</h3>
+                <p>Choose a goal, then select the exercises that belong in the session.</p>
+                <a href="{% url 'routine-create' %}">Add a routine</a>
+            </div>
+        </li>
+        <li class="step">
+            <span class="step-number">4</span>
+            <div>
+                <h3 class="h5">Record the workout</h3>
+                <p>Log the routine you did, how long it took and how it felt.</p>
+                <a href="{% url 'workout-create' %}">Log a workout</a>
+            </div>
+        </li>
+    </ol>
+</section>
+
+<section class="mb-4">
+    <h2 class="section-title">Browse</h2>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <a class="tile" href="{% url 'exercise-list' %}">
+                <h3 class="h4">Exercises</h3>
+                <p class="mb-0">Filter by muscle group and sort by name, difficulty or date.</p>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a class="tile" href="{% url 'routine-list' %}">
+                <h3 class="h4">Routines</h3>
+                <p class="mb-0">See every routine, filter by goal and open the full exercise list.</p>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a class="tile" href="{% url 'workout-list' %}">
+                <h3 class="h4">Workout log</h3>
+                <p class="mb-0">Review past sessions and sort them by date or duration.</p>
+            </a>
+        </div>
+    </div>
+</section>
+
 {% endblock %}
