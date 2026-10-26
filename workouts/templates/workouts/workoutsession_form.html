@@ -2,14 +2,24 @@
 {% block title %}Log a workout{% endblock %}
 {% block content %}
 <h1>Log a workout</h1>
-<form method="post" class="form-narrow" novalidate>
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    {% include "partials/form_field.html" with field=form.routine %}
-    {% include "partials/form_field.html" with field=form.date %}
-    {% include "partials/form_field.html" with field=form.duration_minutes %}
-    {% include "partials/form_field.html" with field=form.notes %}
-    <button class="btn btn-primary" type="submit">Log workout</button>
-    <a class="btn btn-link" href="{% url 'workout-list' %}">Cancel</a>
-</form>
+<div class="form-layout">
+    <form method="post" class="form-narrow" novalidate>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% include "partials/form_field.html" with field=form.routine %}
+        {% include "partials/form_field.html" with field=form.date %}
+        {% include "partials/form_field.html" with field=form.duration_minutes %}
+        {% include "partials/form_field.html" with field=form.notes %}
+        <button class="btn btn-primary" type="submit">Log workout</button>
+        <a class="btn btn-link" href="{% url 'workout-list' %}">Cancel</a>
+    </form>
+    <aside class="side-box">
+        <h2 class="h5">Quick tips</h2>
+        <ul>
+            <li>Choose the routine you followed.</li>
+            <li>The date cannot be in the future.</li>
+            <li>Duration is in minutes, from 1 to 1440.</li>
+        </ul>
+    </aside>
+</div>
 {% endblock %}

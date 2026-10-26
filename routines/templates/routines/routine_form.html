@@ -3,14 +3,24 @@
 {% block content %}
 <h1>{% if object %}Edit routine{% else %}Add routine{% endif %}</h1>
 
-<form method="post" class="form-narrow" novalidate>
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    {% include "partials/form_field.html" with field=form.name %}
-    {% include "partials/form_field.html" with field=form.goal %}
-    {% include "partials/form_field.html" with field=form.description %}
-    {% include "partials/form_field.html" with field=form.exercises %}
-    <button class="btn btn-primary" type="submit">{% if object %}Save changes{% else %}Add routine{% endif %}</button>
-    <a class="btn btn-link" href="{% url 'routine-list' %}">Cancel</a>
-</form>
+<div class="form-layout">
+    <form method="post" class="form-narrow" novalidate>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% include "partials/form_field.html" with field=form.name %}
+        {% include "partials/form_field.html" with field=form.goal %}
+        {% include "partials/form_field.html" with field=form.description %}
+        {% include "partials/form_field.html" with field=form.exercises %}
+        <button class="btn btn-primary" type="submit">{% if object %}Save changes{% else %}Add routine{% endif %}</button>
+        <a class="btn btn-link" href="{% url 'routine-list' %}">Cancel</a>
+    </form>
+    <aside class="side-box">
+        <h2 class="h5">Quick tips</h2>
+        <ul>
+            <li>Name the routine after what it trains, for example "Push Day".</li>
+            <li>Pick a goal: strength, endurance or fat loss.</li>
+            <li>Add the exercises you want in it. You can change them later.</li>
+        </ul>
+    </aside>
+</div>
 {% endblock %}

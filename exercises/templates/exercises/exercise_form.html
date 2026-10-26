@@ -3,17 +3,27 @@
 {% block content %}
 <h1>{% if object %}Edit exercise{% else %}Add exercise{% endif %}</h1>
 
-<form method="post" class="form-narrow" novalidate>
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    {% include "partials/form_field.html" with field=form.name %}
-    {% include "partials/form_field.html" with field=form.description %}
-    {% include "partials/form_field.html" with field=form.difficulty %}
-    {% include "partials/form_field.html" with field=form.muscle_groups %}
-    {% if form.created_on %}
-        {% include "partials/form_field.html" with field=form.created_on %}
-    {% endif %}
-    <button class="btn btn-primary" type="submit">{% if object %}Save changes{% else %}Add exercise{% endif %}</button>
-    <a class="btn btn-link" href="{% url 'exercise-list' %}">Cancel</a>
-</form>
+<div class="form-layout">
+    <form method="post" class="form-narrow" novalidate>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% include "partials/form_field.html" with field=form.name %}
+        {% include "partials/form_field.html" with field=form.description %}
+        {% include "partials/form_field.html" with field=form.difficulty %}
+        {% include "partials/form_field.html" with field=form.muscle_groups %}
+        {% if form.created_on %}
+            {% include "partials/form_field.html" with field=form.created_on %}
+        {% endif %}
+        <button class="btn btn-primary" type="submit">{% if object %}Save changes{% else %}Add exercise{% endif %}</button>
+        <a class="btn btn-link" href="{% url 'exercise-list' %}">Cancel</a>
+    </form>
+    <aside class="side-box">
+        <h2 class="h5">Quick tips</h2>
+        <ul>
+            <li>Use a clear name, at least 3 letters. Names are unique: "Squat" and "squat" count as the same.</li>
+            <li>Tick every muscle group the exercise works.</li>
+            <li>Pick the real difficulty: the bars show it on the cards.</li>
+        </ul>
+    </aside>
+</div>
 {% endblock %}

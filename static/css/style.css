@@ -124,3 +124,14 @@ main .hero-title { display: block; border: 0; padding: 0; }
     .hero-art { display: block; }
     .hero-art img { width: 100%; height: auto; display: block; }
 }
+
+/* ---------- Centered forms with a tips box on the right ---------- */
+main:has(> .form-layout) > h1, main:has(> .panel-danger) > h1 { display: block; margin-left: auto; margin-right: auto; }
+main:has(> .form-layout) > h1 { max-width: 970px; }
+main:has(> .panel-danger) > h1 { max-width: 680px; }
+main > .panel-danger { margin-left: auto; margin-right: auto; }
+.form-layout { display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; align-items: flex-start; }
+.form-layout > .form-narrow { flex: 1 1 520px; max-width: 680px; }
+.side-box { flex: 0 1 270px; background: var(--card); border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: var(--radius); padding: 1.25rem; }
+.side-box ul { padding-left: 1.1rem; margin-bottom: 0; color: var(--steel); font-size: 0.95rem; }
+.side-box li { margin-bottom: 0.5rem; }
