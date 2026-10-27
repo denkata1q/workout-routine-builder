@@ -9,7 +9,7 @@ Individual project for the SoftUni Django Basics regular exam.
 - **Exercises**: create, view, edit and delete exercises with a difficulty level and one or more muscle groups. Filter by muscle group and sort by name, difficulty or date.
 - **Muscle groups**: list and create the muscle groups used to classify exercises.
 - **Routines**: combine exercises into a routine with a goal (strength, endurance, fat loss). Full create, view, edit and delete. Filter by goal.
-- **Workout log**: record when you performed a routine, for how long, and add notes. Sort by date or duration.
+- **Workout log**: record when you performed a routine, for how long, and to add notes about your workout. Sort by date or duration.
 - **Validation**: friendly error messages in forms and models (minimum name length, case-insensitive unique names, no future workout dates, duration limits, names that are only digits).
 - **Custom template filter**: `duration_display` turns minutes into text such as `1h 15m`.
 - **Custom 404 page** and a Bootstrap 5 layout with a shared navigation bar and footer.
